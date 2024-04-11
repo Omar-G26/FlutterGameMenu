@@ -1,6 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:gaminghub/GameOver.dart';
+import 'package:gaminghub/SpaceInvaders/GameOver.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
 import 'package:gaminghub/SpaceInvaders/SpeedUp.dart';
 import 'package:gaminghub/SpaceInvaders/bullet.dart';

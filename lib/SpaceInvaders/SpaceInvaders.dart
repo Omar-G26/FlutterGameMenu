@@ -170,11 +170,11 @@ class SpaceInvaders extends FlameGame with KeyboardEvents, HasCollisionDetection
 
   }
 
-  @override
-  void resumeEngine() {
-    // TODO: implement resumeEngine
-    super.resumeEngine();
-  }
+  // @override
+  // void resumeEngine() {
+  //   // TODO: implement resumeEngine
+  //   super.resumeEngine();
+  // }
 
 
 }
