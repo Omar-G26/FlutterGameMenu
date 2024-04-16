@@ -276,6 +276,12 @@ class _SpaceInvadersPageState extends State<SpaceInvadersPage> {
                 },
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Navigate back to the previous page
+              },
+              child: Icon(Icons.home),
+            ),
       ),
     );
   }
