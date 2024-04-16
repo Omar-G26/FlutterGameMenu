@@ -218,6 +218,7 @@ class _SpaceInvadersPageState extends State<SpaceInvadersPage> {
   late GameWidget<SpaceInvaders> plzwork;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Widget currentChild = Center(child: Text('Game Menu'));
+  bool isDrawerOpen = false;
 
   void changeScreen(Widget newChild) {
     setState(() {
@@ -248,25 +249,35 @@ class _SpaceInvadersPageState extends State<SpaceInvadersPage> {
           useMaterial3: true,
         ),
         home: Scaffold(
-            key: scaffoldKey,
-            drawer: gameNavigation(
-              context: context,
-              game: plzwork,
-              changeScreen: changeScreen,
-            ),
             body: Stack(
               children: [
-                Navigation(scaffoldKey: scaffoldKey),
-                SafeArea(
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: currentChild
-
-                        ///This is the current display of the game
-                        ))
-              ],
-            )));
+                plzwork,
+                if (!isDrawerOpen)
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    child: gameNavigation(
+                      game: plzwork,
+                      context: context,
+                      changeScreen: changeScreen,
+                    ), // Display the gameNavigation drawer
+                  ),
+              ]
+            ),
+            appBar: AppBar(
+              title: Text('Game Home'),
+              leading: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  setState(() {
+                    isDrawerOpen = !isDrawerOpen; // Toggle the state of the drawer
+                  });
+                },
+              ),
+            ),
+      ),
+    );
   }
 }
 
