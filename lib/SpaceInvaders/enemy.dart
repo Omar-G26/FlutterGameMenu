@@ -14,7 +14,7 @@ class Enemy extends SpriteComponent
   Random random = Random(); 
   late double EnemyPositionX = random.nextInt(501) - 250;
   late double EnemyPositionY = random.nextDouble() * 250;
-  late double EnemyFireRate = random.nextInt(4) + 1; 
+  late double EnemyFireRate = random.nextInt(3) + 1; 
 
 
 
@@ -108,7 +108,6 @@ class Enemy extends SpriteComponent
     } 
 
     interval.update(dt);
-
   }
 
   void shoot() {

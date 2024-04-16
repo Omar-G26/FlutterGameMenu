@@ -29,7 +29,7 @@ class playerBullet extends SpriteComponent with HasGameRef<SpaceInvaders> {
   void update(double dt) {
     super.update(dt);
 
-    position.y -= dt * 500;
+    position.y -= dt * 900;   //500
     //print('position x ${position.x} andwidth $width');
     if (position.y < -height || position.x < width || position.y < 0 || position.x < -3) {
       removeFromParent();
@@ -59,7 +59,7 @@ class enemyBullet extends SpriteComponent with HasGameRef<SpaceInvaders> {
 
     final direction = playerPosition - position;
     direction.normalize();  
-    velocity = direction * 500; 
+    velocity = direction * 900; 
     add(
       RectangleHitbox(
         collisionType: CollisionType.passive,
@@ -79,3 +79,12 @@ class enemyBullet extends SpriteComponent with HasGameRef<SpaceInvaders> {
     }
   }
 }
+
+
+
+// FPS = 24.0
+// frame_counts = [35, 1569, 14000]
+
+// for frame_count in frame_counts:
+//     td = timedelta(seconds=(frame_count / FPS))
+//     print(f"Frame {frame_count} is {td} at 24 fps.")

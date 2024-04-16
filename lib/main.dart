@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
+import 'package:gaminghub/SpaceInvaders/GameOver.dart';
+import 'package:gaminghub/SpaceInvaders/pauseScreen.dart';
 
 import 'package:gaminghub/SpaceInvaders/mainMenu.dart';
 import 'package:gaminghub/gameNavigation.dart';
 import 'package:gaminghub/Navigation.dart';
+import 'package:gaminghub/isActive.dart';
 
 void main() {
   //runApp(GameWidget(game: SpaceInvaders()));
@@ -23,7 +26,9 @@ class GameApp_State extends State<GameApp> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Widget currentChild = Center(child: Text('Game Menu'));
 
-   void changeScreen(Widget newChild) {
+  isActive gameStatus = isActive(); 
+
+  void changeScreen(Widget newChild) {
     setState(() {
       currentChild = newChild;
     });
@@ -32,15 +37,18 @@ class GameApp_State extends State<GameApp> {
   @override
   void initState() {
     super.initState();
-    // game1 = SpaceGame();
-
 
     ////CHANGE THIS SUCH THAT plzwork CAN BE ASSIGNED WITH ANY GAME OR SOMETHING IN ORDER FOR BUTTON TO WORK
     plzwork = GameWidget<SpaceInvaders>.controlled(
-      gameFactory: SpaceInvaders.new,
+      gameFactory: () => SpaceInvaders(),
       overlayBuilderMap: {
         'MainMenu': (_, game) => MainMenu(game: game),
-        'GameHub': (_, game) => Navigation(scaffoldKey: scaffoldKey)
+        'GameHub': (_, game) => Navigation(
+              scaffoldKey: scaffoldKey,
+              game: game,
+            ),
+        'GameOver': (_, game) => GameOver(game: game),
+        'PauseMenu': (_, game) => PauseScreen(game: game),
       },
       initialActiveOverlays: const ['MainMenu', 'GameHub'],
     );
@@ -57,7 +65,23 @@ class GameApp_State extends State<GameApp> {
         ),
         home: Scaffold(
             key: scaffoldKey,
-            drawer: gameNavigation(context: context, game: plzwork, changeScreen: changeScreen,),
+            drawer: gameNavigation(
+                context: context,
+                game: plzwork,
+                changeScreen: changeScreen,
+               // gameStatus: gameStatus,
+              ),
+            onDrawerChanged: (isOpen) {
+              // write your callback implementation here
+              if(isOpen == true){
+                gameStatus.resumeGame(); 
+              } else if(isOpen == false){  
+                gameStatus.pauseGame();                
+              // gameStatus.setActive(true);
+              }
+              print(gameStatus.getActive());
+              print('status $isOpen');
+            },
             body: Stack(
               children: [
                 Navigation(scaffoldKey: scaffoldKey),
@@ -65,11 +89,10 @@ class GameApp_State extends State<GameApp> {
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
-                        child:
-                            currentChild  ///This is the current display of the game 
-                            ))
+                        child: currentChild
+                        ///This is the current display of the game
+                        ))
               ],
-            ))
-            );
+            )));
   }
 }

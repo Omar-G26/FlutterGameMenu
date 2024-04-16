@@ -2,17 +2,20 @@ import 'package:flame/game.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
 
 import 'package:flutter/material.dart';
+import 'package:gaminghub/isActive.dart';
 
 //extends StatelessWidget
 class gameNavigation extends StatelessWidget {
   final BuildContext context;
   final GameWidget<SpaceInvaders> game;
   final void Function(Widget newChild) changeScreen;
+  //isActive gameStatus; 
 
-  const gameNavigation(
+  gameNavigation(
       {required this.game,
       required this.context,
       required this.changeScreen,
+    //  required this.gameStatus, 
       super.key});
 
   @override
@@ -29,7 +32,10 @@ class gameNavigation extends StatelessWidget {
         SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
-            print('hii');
+            // print('is working???111 ${gameStatus?.getActive()}');
+            // gameStatus?.setActive(true); 
+            // print('is working??? ${gameStatus?.getActive()}');
+           // gameStatus.setGame(game);
             changeScreen(game);
           },
           child: Text('Space Game'),

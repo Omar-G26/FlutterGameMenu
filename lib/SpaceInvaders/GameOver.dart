@@ -1,19 +1,12 @@
-import 'dart:async';
-
-import 'package:flame/game.dart';
-import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/parallax.dart';
 
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
-import 'package:gaminghub/SpaceInvaders/SpaceGame.dart';
-import 'package:gaminghub/SpaceInvaders/enemy.dart';
+
 
 class GameOver extends StatelessWidget {
   final SpaceInvaders game;
-  //final background game;
-  //final SpaceGame game;
+  //final background game; 
+  //final SpaceGame game; 
 
   const GameOver({required this.game, super.key});
 
@@ -24,17 +17,46 @@ class GameOver extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(10.0),
+          height: 250,
+          width: 300,
+   
           child: Column(
-        children: [
-          Text('Game Over', style: TextStyle(color: Colors.white)),
-          SizedBox(height: 30,),
-          ElevatedButton(onPressed: (){
-            game.removeAll;
-            game.startGame(started: true); 
-          }, 
-          child: Text('Retry?',style: TextStyle(color: Colors.white)))
-          ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Game Over',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                ),
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                width: 170,
+                height: 75,
+                child: ElevatedButton(
+                  onPressed: () {
+                    game.overlays.remove('MainMenu');
+                    game.startGame(started: true);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    'Restart?',
+                    style: TextStyle(
+                      fontSize: 27.0,
+                      color: blackTextColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
