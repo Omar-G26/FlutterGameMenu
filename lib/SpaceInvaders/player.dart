@@ -106,21 +106,21 @@ class Player extends SpriteComponent
 
     //    print('other is ${other} check other is Enemy ${other is Enemy}');
 
-  //  if (other is enemyBullet) {
-  //     removeFromParent();
-  //     other.removeFromParent();
-  //     game.add(Explosion(position: position));
-  //     game.gameOver = true; 
-  //     game.enemySpawn.removeFromParent();
-  //    // print(game.gameOver);
-  //     game.overlays.add('GameOver');
-  //   } else if(other is Enemy){
-  //     removeFromParent();
-  //     game.enemySpawn.removeFromParent();
-  //     game.add(Explosion(position: position));
-  //     game.gameOver = true; 
-  //     game.overlays.add('GameOver');
-  //   }
+   if (other is enemyBullet) {
+      removeFromParent();
+      other.removeFromParent();
+      game.add(Explosion(position: position));
+      game.gameOver = true; 
+      game.enemySpawn.removeFromParent();
+     // print(game.gameOver);
+      game.overlays.add('GameOver');
+    } else if(other is Enemy){
+      removeFromParent();
+      game.enemySpawn.removeFromParent();
+      game.add(Explosion(position: position));
+      game.gameOver = true; 
+      game.overlays.add('GameOver');
+    }
   }
 
 }

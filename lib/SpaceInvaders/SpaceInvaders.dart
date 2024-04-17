@@ -11,7 +11,6 @@ import 'package:flame/events.dart';
 
 import 'package:flutter/services.dart';
 
-import 'package:gaminghub/isActive.dart';
 
 //PanDetector
 //KeyboardEvents
@@ -176,13 +175,12 @@ class SpaceInvaders extends FlameGame
   void pauseEngine() {
     // TODO: implement pauseEngine
     super.pauseEngine();
-    overlays.add('PauseMenu');
+    print(overlays.activeOverlays);
   }
 
   @override
   void resumeEngine() {
     // TODO: implement resumeEngine
     super.resumeEngine();
-    overlays.remove('PauseMenu');
   }
 }
