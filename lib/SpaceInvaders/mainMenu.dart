@@ -35,6 +35,7 @@ class MainMenu extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
+                  fontFamily: 'retro'
                 ),
               ),
               const SizedBox(height: 40),
@@ -54,6 +55,7 @@ class MainMenu extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 40.0,
                       color: blackTextColor,
+                      fontFamily: 'retro'
                     ),
                   ),
                 ),

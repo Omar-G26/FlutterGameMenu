@@ -1,16 +1,17 @@
+
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:gaminghub/SpaceInvaders/bullet.dart';
-import 'package:gaminghub/SpaceInvaders/mainmenu.dart';
 import 'package:gaminghub/SpaceInvaders/player.dart';
 import 'package:gaminghub/SpaceInvaders/enemy.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/events.dart';
+import 'package:gaminghub/ScoreHandler/scoreData.dart';
+
 
 import 'package:flutter/services.dart';
-
 
 //PanDetector
 //KeyboardEvents
@@ -20,6 +21,11 @@ class SpaceInvaders extends FlameGame
   late SpawnComponent enemySpawn;
   bool gameOver = false;
   late bool initializeGame;
+  late int score = 0;
+  late int HighScore = 0; 
+  late TextComponent scoreText;
+  final Scores scoreData = Scores(); 
+
   late Future<Sprite> pauseOverlayIdentifier = loadSprite('pause.png');
 
   @override
@@ -43,6 +49,19 @@ class SpaceInvaders extends FlameGame
     //     area: Rectangle.fromLTWH(0, 0, size.x, -Enemy.enemySize),
     //   ),
     // );
+
+        scoreText = TextComponent(
+        text: 'score: $score',
+        textRenderer: TextPaint(
+          style: const TextStyle(
+            fontSize: 32,
+            color: Colors.white,
+            fontFamily: 'retro'
+          ),
+        ),
+        anchor: Anchor.center,
+        position: Vector2(size.x - 100, 20),
+      );
 
     enemySpawn = SpawnComponent(
       factory: (index) {
@@ -152,6 +171,7 @@ class SpaceInvaders extends FlameGame
         gameOver = false;
       }
 
+      add(scoreText);
       currentPlayer.position.setFrom(size / 2);
       add(currentPlayer);
 

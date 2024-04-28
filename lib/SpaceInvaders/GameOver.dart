@@ -30,6 +30,7 @@ class GameOver extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 40,
+                  fontFamily: 'retro'
                 ),
               ),
               const SizedBox(height: 40),
@@ -49,6 +50,7 @@ class GameOver extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 27.0,
                       color: blackTextColor,
+                      fontFamily: 'retro'
                     ),
                   ),
                 ),

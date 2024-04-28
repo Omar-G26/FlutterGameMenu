@@ -127,6 +127,8 @@ class Enemy extends SpriteComponent
       removeFromParent();
       other.removeFromParent();
       game.add(Explosion(position: position));
+      game.score += 100; 
+      game.scoreText.text = 'score: ${game.score}'; 
     }
   }
 }
