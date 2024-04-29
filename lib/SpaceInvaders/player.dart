@@ -1,12 +1,13 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:gaminghub/SpaceInvaders/GameOver.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
+import 'package:gaminghub/SpaceInvaders/SpeedUp.dart';
 import 'package:gaminghub/SpaceInvaders/bullet.dart';
 import 'package:gaminghub/SpaceInvaders/enemy.dart';
 import 'package:gaminghub/SpaceInvaders/Explode.dart';
 
 
-import 'package:gaminghub/ScoreHandler/scoreData.dart';
 
 //SpriteAnimationComponent
 //SpriteComponent
@@ -106,31 +107,17 @@ class Player extends SpriteComponent
   void onCollisionStart(Set<Vector2> intersectionPoints,PositionComponent other ) {
         super.onCollisionStart(intersectionPoints, other);
 
-    //    print('other is ${other} check other is Enemy ${other is Enemy}');
+        print('other is ${other} check other is Enemy ${other is Enemy}');
 
    if (other is enemyBullet) {
       removeFromParent();
       other.removeFromParent();
       game.add(Explosion(position: position));
-      game.scoreData.SpaceInvadersScoreManager(game.score); 
-      game.gameOver = true; 
-      game.enemySpawn.removeFromParent();
-      game.scoreText.removeFromParent();
-      game.score = 0; 
-      game.scoreText.text = 'score: ${game.score}';
-     // game.score = 0; 
-     // print(game.gameOver);
-      game.overlays.add('GameOver');
+      print('This is the position of blown up ship $position');
+    //  game.overlays.add(GameOver());
     } else if(other is Enemy){
       removeFromParent();
-      game.enemySpawn.removeFromParent();
       game.add(Explosion(position: position));
-      game.scoreData.SpaceInvadersScoreManager(game.score); 
-      game.gameOver = true; 
-      game.scoreText.removeFromParent();
-      game.score = 0; 
-      game.scoreText.text = 'score: ${game.score}';     // game.score = 0; 
-      game.overlays.add('GameOver');
     }
   }
 

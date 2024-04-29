@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/parallax.dart';
 
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart'; 
+import 'package:gaminghub/SpaceInvaders/SpaceGame.dart'; 
 
 
 class MainMenu extends StatelessWidget {
@@ -27,6 +28,12 @@ class MainMenu extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           height: 250,
           width: 300,
+          decoration: const BoxDecoration(
+            color: blackTextColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -35,7 +42,6 @@ class MainMenu extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
-                  fontFamily: 'retro'
                 ),
               ),
               const SizedBox(height: 40),
@@ -55,7 +61,6 @@ class MainMenu extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 40.0,
                       color: blackTextColor,
-                      fontFamily: 'retro'
                     ),
                   ),
                 ),
