@@ -24,7 +24,7 @@ class SpaceInvaders extends FlameGame
   late int score = 0;
   late int HighScore = 0; 
   late TextComponent scoreText;
-  final Scores scoreData = Scores(); 
+  final Scores scoreData = Scores();
 
   late Future<Sprite> pauseOverlayIdentifier = loadSprite('pause.png');
 

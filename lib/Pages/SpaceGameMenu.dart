@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
+import 'package:gaminghub/ScoreHandler/scoreData.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
 import 'package:gaminghub/SpaceInvaders/GameOver.dart';
 import 'package:gaminghub/SpaceInvaders/pauseScreen.dart';
@@ -12,7 +13,7 @@ import 'package:gaminghub/Navigation.dart';
 
 
 class SpaceInvadersPage extends StatefulWidget {
-  const SpaceInvadersPage({Key? key}) : super(key: key);
+ SpaceInvadersPage({Key? key,required}) : super(key: key);
 
   @override
   _SpaceInvadersPageState createState() => _SpaceInvadersPageState();

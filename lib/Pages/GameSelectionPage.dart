@@ -7,7 +7,6 @@ import 'package:gaminghub/ScoreHandler/scoreData.dart';
 
 class SelectionPage extends StatefulWidget {
   const SelectionPage({Key? key}) : super(key: key);
-
   @override
   GameSelectionPage createState() => GameSelectionPage();
 }
@@ -29,6 +28,12 @@ class GameSelectionPage extends State<SelectionPage> {
     });
   }
 
+  void handleScoreAndTemp(int highscore, List<Widget> ScoreView){
+    // setState(() {
+    //   highscore = ;
+    // });
+  }
+
   void makeImage() {
     if (e.isHovered) {
       print('aahhhh');
@@ -39,6 +44,7 @@ class GameSelectionPage extends State<SelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    scoreData.load(); 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game Selection'),
@@ -49,13 +55,12 @@ class GameSelectionPage extends State<SelectionPage> {
           children: [
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               FocusableActionDetector(
-                onShowHoverHighlight: (_) {
+                onShowHoverHighlight: (_) async {
                   handleHover('assets/images/GameSpaceScreen.png');
-                  // historyTiles.add(ListTile(title: Text('${temp1} = ${temp2}')));
                   tempScoreView.clear();
                   hasScore = true;
-                  tempHighScore = scoreData.SpaceInvadersHighScore;
-                  for (var score in scoreData.SpaceInvadersRecentScores) {
+                  tempHighScore = await scoreData.getSpaceShooterHighScore();
+                  for (var score in await scoreData.getSpaceShooterScores()) {
                     tempScoreView.add(ListTile(
                         title: Text(score.toString(),
                             style:
@@ -67,7 +72,7 @@ class GameSelectionPage extends State<SelectionPage> {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SpaceInvadersPage(),
+                      builder: (context) => SpaceInvadersPage(),
                     ),
                   ),
                 ).animate().fadeIn(delay: 0.3.seconds, duration: .2.seconds),
@@ -89,12 +94,12 @@ class GameSelectionPage extends State<SelectionPage> {
                   ).animate().fadeIn(delay: 0.3.seconds, duration: .2.seconds)),
               const SizedBox(height: 16),
               FocusableActionDetector(
-                  onShowHoverHighlight: (_) {
+                  onShowHoverHighlight: (_) async{
                     handleHover('assets/images/tetris.png');
                     tempScoreView.clear();
                     hasScore = true;
-                    tempHighScore = scoreData.TetrisHighScore;
-                    for (var score in scoreData.TetrisRecentScores) {
+                    tempHighScore =  await scoreData.getTetrisHighScore();
+                    for (var score in await scoreData.getTetrisScores()) {
                       tempScoreView.add(ListTile(
                           title: Text(score.toString(),
                               style: TextStyle(
@@ -103,7 +108,7 @@ class GameSelectionPage extends State<SelectionPage> {
                   },
                   child: GameSelectButton(
                     label: 'Tetris',
-                    onPressed: () => Navigator.push(
+                    onPressed: () => Navigator.push( 
                       context,
                       MaterialPageRoute(
                         builder: (context) => const TetrisPage(),

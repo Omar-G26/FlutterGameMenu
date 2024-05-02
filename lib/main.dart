@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:gaminghub/Pages/GameHomePage.dart';
 
-void main() {
+
+void main() {  
   runApp(const GameApp());
 }
 
