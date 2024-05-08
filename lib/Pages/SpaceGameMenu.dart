@@ -9,6 +9,8 @@ import 'package:gaminghub/SpaceInvaders/pauseScreen.dart';
 import 'package:gaminghub/SpaceInvaders/mainMenu.dart';
 import 'package:gaminghub/gameNavigation.dart';
 import 'package:gaminghub/Navigation.dart';
+import 'package:gaminghub/Pages/GameSelectionPage.dart';
+
 
 
 
@@ -102,7 +104,8 @@ class _SpaceInvadersPageState extends State<SpaceInvadersPage> {
             // ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Navigate back to the previous page
+                 Navigator.of(context).pop(); // Navigate back to the previous page
+            
               },
               child: Icon(Icons.home),
             ),

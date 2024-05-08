@@ -5,6 +5,9 @@ import 'package:gaminghub/main.dart';
 import 'package:gaminghub/Pages/SpaceGameMenu.dart';
 import 'package:gaminghub/ScoreHandler/scoreData.dart';
 
+import 'package:gaminghub/TicTacToe/TicTacToe.dart';
+
+
 class SelectionPage extends StatefulWidget {
   const SelectionPage({Key? key}) : super(key: key);
   @override
@@ -79,7 +82,7 @@ class GameSelectionPage extends State<SelectionPage> {
               ),
               const SizedBox(height: 16),
               FocusableActionDetector(
-                  onShowHoverHighlight: (_) {
+                  onShowHoverHighlight: (_) { 
                     handleHover('assets/images/TicTacToe.png');
                     hasScore = false;
                   },
@@ -88,7 +91,7 @@ class GameSelectionPage extends State<SelectionPage> {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const TicTacToePage(),
+                        builder: (context) => TicTacToeGame(),
                       ),
                     ),
                   ).animate().fadeIn(delay: 0.3.seconds, duration: .2.seconds)),

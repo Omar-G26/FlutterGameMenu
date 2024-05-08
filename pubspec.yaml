@@ -85,6 +85,23 @@ flutter:
     - assets/images/GameSpaceScreen.png
     - assets/images/tetris.png
     - assets/images/TicTacToe.png
+    - assets/backgroundImages/Layer_0000_9.png
+    - assets/backgroundImages/Layer_0001_8.png
+    - assets/backgroundImages/Layer_0002_7.png
+    - assets/backgroundImages/Layer_0003_6.png
+    - assets/backgroundImages/Layer_0004_Lights.png
+    - assets/backgroundImages/Layer_0005_5.png
+    - assets/backgroundImages/Layer_0006_4.png
+    - assets/backgroundImages/Layer_0007_Lights.png
+    - assets/backgroundImages/Layer_0008_3.png
+    - assets/backgroundImages/Layer_0009_2.png
+    - assets/backgroundImages/Layer_0010_1.png
+    - assets/backgroundImages/Layer_0011_0.png
+    - assets/backgroundImages/maxresdefault.jpg
+
+
+
+
 
 
 

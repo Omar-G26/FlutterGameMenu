@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:gaminghub/Pages/GameHomePage.dart';
+import 'package:gaminghub/path/backgroundAssets.dart';
 
 
-void main() {  
+
+
+void main() {   
   runApp(const GameApp());
 }
+
 
 class GameApp extends StatelessWidget {
   const GameApp({Key? key}) : super(key: key);
@@ -40,21 +43,6 @@ class GameApp extends StatelessWidget {
 }
 */
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
-        child: const Text('settings'),
-      ),
-    );
-  }
-}
 
 class ScoresPage extends StatelessWidget {
   const ScoresPage({Key? key}) : super(key: key);
@@ -67,23 +55,6 @@ class ScoresPage extends StatelessWidget {
       ),
       body: Center(
         child: const Text('High Score!'),
-      ),
-    );
-  }
-}
-
-
-class TicTacToePage extends StatelessWidget {
-  const TicTacToePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('TicTacToe'),
-      ),
-      body: Center(
-        child: const Text('Game'),
       ),
     );
   }

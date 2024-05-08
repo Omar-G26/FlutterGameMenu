@@ -19,7 +19,7 @@ class GameOver extends StatelessWidget {
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(10.0),
-          height: 250,
+          height: 350,
           width: 300,
    
           child: Column(
@@ -29,13 +29,23 @@ class GameOver extends StatelessWidget {
                 'Game Over',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
+                  fontSize: 50,
                   fontFamily: 'retro'
                 ),
               ),
+              const SizedBox(height: 10),
+               Text(
+                'Score: ${game.score}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontFamily: 'retro'
+                ),
+              ),
+
               const SizedBox(height: 40),
               SizedBox(
-                width: 170,
+                width: 200,
                 height: 75,
                 child: ElevatedButton(
                   onPressed: () {

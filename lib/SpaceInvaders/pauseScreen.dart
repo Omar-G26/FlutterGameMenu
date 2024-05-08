@@ -21,12 +21,10 @@ class PauseScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'PAUSE',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 50,
-                ),
+              fontSize: 50.0, color: Colors.white, fontFamily: 'retro'),
               ),
               InkWell(
                 onTap: () {
@@ -35,7 +33,8 @@ class PauseScreen extends StatelessWidget {
                 },
                 child: const Text(
                   'Continue',
-                  style: TextStyle(fontSize: 15.0, color: Colors.white),
+                 style: TextStyle(
+              fontSize: 15.0, color: Colors.white, fontFamily: 'retro'),
                 ),
               ),
             ],

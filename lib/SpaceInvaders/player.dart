@@ -112,12 +112,7 @@ class Player extends SpriteComponent
       removeFromParent();
       other.removeFromParent();
       game.add(Explosion(position: position));
-      game.scoreData.SpaceInvadersScoreManager(game.score); 
-      game.gameOver = true; 
-      game.enemySpawn.removeFromParent();
-      game.scoreText.removeFromParent();
-      game.score = 0; 
-      game.scoreText.text = 'score: ${game.score}';
+     game.endGame();
      // game.score = 0; 
      // print(game.gameOver);
       game.overlays.add('GameOver');
@@ -125,11 +120,7 @@ class Player extends SpriteComponent
       removeFromParent();
       game.enemySpawn.removeFromParent();
       game.add(Explosion(position: position));
-      game.scoreData.SpaceInvadersScoreManager(game.score); 
-      game.gameOver = true; 
-      game.scoreText.removeFromParent();
-      game.score = 0; 
-      game.scoreText.text = 'score: ${game.score}';     // game.score = 0; 
+      game.endGame();
       game.overlays.add('GameOver');
     }
   }

@@ -1,4 +1,3 @@
-
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
@@ -9,7 +8,6 @@ import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/events.dart';
 import 'package:gaminghub/ScoreHandler/scoreData.dart';
-
 
 import 'package:flutter/services.dart';
 
@@ -22,11 +20,24 @@ class SpaceInvaders extends FlameGame
   bool gameOver = false;
   late bool initializeGame;
   late int score = 0;
-  late int HighScore = 0; 
+  late int HighScore = 0;
   late TextComponent scoreText;
   final Scores scoreData = Scores();
 
   late Future<Sprite> pauseOverlayIdentifier = loadSprite('pause.png');
+
+  late int elapsedSecs = 0;
+  late Timer interval;
+
+  SpaceInvaders() {
+    interval = Timer(
+      1,
+      onTick: () => {elapsedSecs += 1, 
+     // print(elapsedSecs)
+      },
+      repeat: true,
+    );
+  }
 
   @override
   Future<void> onLoad() async {
@@ -50,22 +61,19 @@ class SpaceInvaders extends FlameGame
     //   ),
     // );
 
-        scoreText = TextComponent(
-        text: 'score: $score',
-        textRenderer: TextPaint(
-          style: const TextStyle(
-            fontSize: 32,
-            color: Colors.white,
-            fontFamily: 'retro'
-          ),
-        ),
-        anchor: Anchor.center,
-        position: Vector2(size.x - 100, 20),
-      );
+    scoreText = TextComponent(
+      text: 'score: $score',
+      textRenderer: TextPaint(
+        style: const TextStyle(
+            fontSize: 32, color: Colors.white, fontFamily: 'retro'),
+      ),
+      anchor: Anchor.center,
+      position: Vector2(size.x - 130, 20),
+    );
 
     enemySpawn = SpawnComponent(
       factory: (index) {
-        return Enemy();
+        return Enemy(sec: elapsedSecs);
       },
       period: 1,
       area: Rectangle.fromLTWH(0, 0, size.x, -Enemy.enemySize),
@@ -94,6 +102,10 @@ class SpaceInvaders extends FlameGame
     if (currentPlayer.y < 0) {
       //top of the screen
       currentPlayer.y = 0;
+    }
+
+    if (initializeGame == true) {
+      interval.update(dt);
     }
   }
 
@@ -153,6 +165,19 @@ class SpaceInvaders extends FlameGame
     return KeyEventResult.ignored;
   }
 
+  void endGame() {
+    scoreData.SpaceInvadersScoreManager(score);
+    gameOver = true;
+    initializeGame = false;
+    elapsedSecs = 0;
+    enemySpawn.removeFromParent();
+    scoreText.removeFromParent();
+    //score = 0;
+    // print('sthis is the score b4 $score');
+    // scoreText.text = 'score: ${score}';
+    // print('this is the score $score');
+  }
+
   void startGame({required bool started}) {
     initializeGame = started;
     if (started == true) {
@@ -170,6 +195,9 @@ class SpaceInvaders extends FlameGame
 
         gameOver = false;
       }
+      score = 0; 
+      scoreText.text = 'score: ${score}';
+
 
       add(scoreText);
       currentPlayer.position.setFrom(size / 2);

@@ -1,18 +1,14 @@
-import 'dart:async';
 
-import 'package:flame/game.dart';
-import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/parallax.dart';
 
-import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart'; 
-
+import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
 
 class MainMenu extends StatelessWidget {
   final SpaceInvaders game;
-  //final background game; 
-  //final SpaceGame game; 
+  //final background game;
+  //final SpaceGame game;
+
 
   const MainMenu({required this.game, super.key});
 
@@ -22,21 +18,22 @@ class MainMenu extends StatelessWidget {
 
     return Material(
       color: Colors.transparent,
-      child: Center(
-        child: Container(
+      child:
+          // Row(children: [
+          Center(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(
           padding: const EdgeInsets.all(10.0),
           height: 250,
-          width: 300,
+          width: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
                 'Space Shooter',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontFamily: 'retro'
-                ),
+                    color: Colors.white, fontSize: 50, fontFamily: 'retro'),
               ),
               const SizedBox(height: 40),
               SizedBox(
@@ -53,17 +50,32 @@ class MainMenu extends StatelessWidget {
                   child: const Text(
                     'Play',
                     style: TextStyle(
-                      fontSize: 40.0,
-                      color: blackTextColor,
-                      fontFamily: 'retro'
-                    ),
+                        fontSize: 40.0,
+                        color: blackTextColor,
+                        fontFamily: 'retro'),
                   ),
                 ),
               ),
             ],
           ),
         ),
-      ),
+
+        const Column( mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+       //  Container(height: 300, width: 300, child: Image.asset('assets/images/PlayerShip2.png', scale: 0.12)),
+        //  Image.asset(
+        //         'assets/images/PlayerShip2.png',
+        //         width: 500,
+        //         height: 100,
+        //       ),
+        Text(
+          ' Move with W,A,S,D \n or Arrow keys to move.\n Use SpaceBar to fire bullets',
+          style: TextStyle(
+              fontSize: 20.0, color: Colors.white, fontFamily: 'retro'),
+        )])
+      ])),
     );
   }
 }
+
+

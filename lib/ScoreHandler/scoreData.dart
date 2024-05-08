@@ -16,7 +16,7 @@ class Scores extends ChangeNotifier {
     if (newScore > spaceHighscore) {
       spaceHighscore = newScore;
     }
-    if(spaceScores.length > 7) spaceScores.removeLast(); 
+    if(spaceScores.length >= 7) spaceScores.removeLast(); 
     spaceScores.add(newScore);
     await update(); 
   }
@@ -34,6 +34,10 @@ class Scores extends ChangeNotifier {
       spaceScores = userMap['SpaceGame'][0]['SCORES'];
       tetrisHighScore = userMap['Tetris'][0]['HIGHSCORE'];
       tetrisScores = userMap['Tetris'][0]['SCORES'];
+
+      spaceScores.sort((a, b) => b.compareTo(a));
+      tetrisScores.sort((a, b) => b.compareTo(a));
+
     } else {
       await File(dir).create();
       await update();
