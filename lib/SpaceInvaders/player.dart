@@ -5,9 +5,6 @@ import 'package:gaminghub/SpaceInvaders/bullet.dart';
 import 'package:gaminghub/SpaceInvaders/enemy.dart';
 import 'package:gaminghub/SpaceInvaders/Explode.dart';
 
-
-import 'package:gaminghub/ScoreHandler/scoreData.dart';
-
 //SpriteAnimationComponent
 //SpriteComponent
 class Player extends SpriteComponent

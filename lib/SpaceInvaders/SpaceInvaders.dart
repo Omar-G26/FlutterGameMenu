@@ -166,7 +166,7 @@ class SpaceInvaders extends FlameGame
   }
 
   void endGame() {
-    scoreData.SpaceInvadersScoreManager(score);
+    scoreData.UpdateSpaceShooterData(score);
     gameOver = true;
     initializeGame = false;
     elapsedSecs = 0;

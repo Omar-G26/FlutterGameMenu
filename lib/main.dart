@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gaminghub/Pages/GameHomePage.dart';
-import 'package:gaminghub/path/backgroundAssets.dart';
-
-
-
 
 void main() {   
   runApp(const GameApp());
@@ -60,18 +56,4 @@ class ScoresPage extends StatelessWidget {
   }
 }
 
-class TetrisPage extends StatelessWidget {
-  const TetrisPage({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tetris'),
-      ),
-      body: Center(
-        child: const Text('Game'),
-      ),
-    );
-  }
-}

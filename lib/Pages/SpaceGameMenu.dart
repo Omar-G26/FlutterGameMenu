@@ -1,13 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
-import 'package:gaminghub/ScoreHandler/scoreData.dart';
 import 'package:gaminghub/SpaceInvaders/SpaceInvaders.dart';
 import 'package:gaminghub/SpaceInvaders/GameOver.dart';
 import 'package:gaminghub/SpaceInvaders/pauseScreen.dart';
 
 import 'package:gaminghub/SpaceInvaders/mainMenu.dart';
-import 'package:gaminghub/gameNavigation.dart';
+import 'package:gaminghub/gameNavigationSpaceGame.dart';
 import 'package:gaminghub/Navigation.dart';
 import 'package:gaminghub/Pages/GameSelectionPage.dart';
 
@@ -104,7 +103,10 @@ class _SpaceInvadersPageState extends State<SpaceInvadersPage> {
             // ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                 Navigator.of(context).pop(); // Navigate back to the previous page
+                 //Navigator.of(context).pop(); // Navigate back to the previous page
+                 Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => SelectionPage(),
+                ));
             
               },
               child: Icon(Icons.home),

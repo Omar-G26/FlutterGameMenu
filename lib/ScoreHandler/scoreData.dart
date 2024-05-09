@@ -11,13 +11,23 @@ class Scores extends ChangeNotifier {
   late int tetrisHighScore = 0;
   late List<dynamic> tetrisScores = [];
 
-  void SpaceInvadersScoreManager(int newScore) async {
+  void UpdateSpaceShooterData(int newScore) async {
     await load();
     if (newScore > spaceHighscore) {
       spaceHighscore = newScore;
     }
-    if(spaceScores.length >= 7) spaceScores.removeLast(); 
+    if(spaceScores.length >= 7) spaceScores.removeAt(0);  ///removeAtLast() was here 
     spaceScores.add(newScore);
+    await update(); 
+  }
+
+   void UpdateTetrisData(int newScore) async {
+    await load();
+    if (newScore > tetrisHighScore) {
+      tetrisHighScore = newScore;
+    }
+    if(tetrisScores.length >= 7) tetrisScores.removeAt(0);  ///removeAtLast() was here 
+    tetrisScores.add(newScore);
     await update(); 
   }
 
@@ -35,8 +45,8 @@ class Scores extends ChangeNotifier {
       tetrisHighScore = userMap['Tetris'][0]['HIGHSCORE'];
       tetrisScores = userMap['Tetris'][0]['SCORES'];
 
-      spaceScores.sort((a, b) => b.compareTo(a));
-      tetrisScores.sort((a, b) => b.compareTo(a));
+      // spaceScores.sort((a, b) => b.compareTo(a));
+      // tetrisScores.sort((a, b) => b.compareTo(a));
 
     } else {
       await File(dir).create();
@@ -75,15 +85,6 @@ class Scores extends ChangeNotifier {
 
     await load(); 
     notifyListeners();
-  }
-
-  Future<void> updateSpaceShooter(int newScore) async {
-    if (newScore > spaceHighscore) {
-      spaceHighscore = newScore;
-    }
-
-    spaceScores.add(newScore);
-    // print(' high score $SpaceInvadersHighScore'); //write to JSON?
   }
 
   Future<int> getSpaceShooterHighScore() async {

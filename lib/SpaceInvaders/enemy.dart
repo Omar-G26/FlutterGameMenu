@@ -22,7 +22,7 @@ class Enemy extends SpriteComponent
           size: Vector2.all(enemySize),
           anchor: Anchor.center,
         ) {
-          print(sec);
+          //print(sec);
     interval = Timer(
       //EnemyFireRate,
       testFire(sec),

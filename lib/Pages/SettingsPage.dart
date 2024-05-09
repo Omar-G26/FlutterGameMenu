@@ -100,18 +100,15 @@ class Background extends State<BackgroundPage> {
 class SettingsButton extends StatelessWidget {
   const SettingsButton({
     required this.onPressed,
-    //required this.onHover,
     required this.label,
   });
   final String label;
   final VoidCallback onPressed;
-//  final void Function(bool hasFocus) onHover;
 
   @override
   Widget build(BuildContext context) {
     return FocusableControlBuilder(
       onPressed: onPressed,
-      //   onHoverChanged: (_, state) => onHover.call(state.isHovered),
       builder: (_, state) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -139,15 +136,6 @@ class SettingsButton extends StatelessWidget {
                     ),
                   ),
                 ],
-
-                // if (state.isHovered) ...[
-                //   Positioned.fill(
-                //     child: Image.asset(
-                //       'assets/images/GameSpaceScreen.png',
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ],
 
                 /// Label
                 Center(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:focusable_control_builder/focusable_control_builder.dart';
-import 'package:gaminghub/main.dart';
+import 'package:gaminghub/Pages/GameHomePage.dart';
 import 'package:gaminghub/Pages/SpaceGameMenu.dart';
 import 'package:gaminghub/ScoreHandler/scoreData.dart';
 
 import 'package:gaminghub/TicTacToe/TicTacToe.dart';
-
+import 'package:gaminghub/Tetris/board.dart';
 
 class SelectionPage extends StatefulWidget {
   const SelectionPage({Key? key}) : super(key: key);
@@ -31,26 +31,28 @@ class GameSelectionPage extends State<SelectionPage> {
     });
   }
 
-  void handleScoreAndTemp(int highscore, List<Widget> ScoreView){
-    // setState(() {
-    //   highscore = ;
-    // });
-  }
-
-  void makeImage() {
-    if (e.isHovered) {
-      print('aahhhh');
-    }
-    ;
-    print(e);
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    scoreData.load(); 
+    scoreData.load();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game Selection'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GameHomePage(),
+              ),
+            );
+          },
+        ),
       ),
       body: Center(
         child: Row(
@@ -72,7 +74,7 @@ class GameSelectionPage extends State<SelectionPage> {
                 },
                 child: GameSelectButton(
                   label: 'Space Shooter Game',
-                  onPressed: () => Navigator.push(
+                  onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SpaceInvadersPage(),
@@ -82,13 +84,13 @@ class GameSelectionPage extends State<SelectionPage> {
               ),
               const SizedBox(height: 16),
               FocusableActionDetector(
-                  onShowHoverHighlight: (_) { 
+                  onShowHoverHighlight: (_) {
                     handleHover('assets/images/TicTacToe.png');
                     hasScore = false;
                   },
                   child: GameSelectButton(
                     label: 'Tic Tac Toe',
-                    onPressed: () => Navigator.push(
+                    onPressed: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => TicTacToeGame(),
@@ -97,11 +99,11 @@ class GameSelectionPage extends State<SelectionPage> {
                   ).animate().fadeIn(delay: 0.3.seconds, duration: .2.seconds)),
               const SizedBox(height: 16),
               FocusableActionDetector(
-                  onShowHoverHighlight: (_) async{
+                  onShowHoverHighlight: (_) async {
                     handleHover('assets/images/tetris.png');
                     tempScoreView.clear();
                     hasScore = true;
-                    tempHighScore =  await scoreData.getTetrisHighScore();
+                    tempHighScore = await scoreData.getTetrisHighScore();
                     for (var score in await scoreData.getTetrisScores()) {
                       tempScoreView.add(ListTile(
                           title: Text(score.toString(),
@@ -111,10 +113,10 @@ class GameSelectionPage extends State<SelectionPage> {
                   },
                   child: GameSelectButton(
                     label: 'Tetris',
-                    onPressed: () => Navigator.push( 
+                    onPressed: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const TetrisPage(),
+                        builder: (context) => const GameBoard(),
                       ),
                     ),
                   ).animate().fadeIn(delay: 0.3.seconds, duration: .2.seconds)),
@@ -145,24 +147,18 @@ class GameSelectionPage extends State<SelectionPage> {
   }
 }
 
-// flutter_animate: ^4.5.0
-//   focusable_control_builder: ^1.0.2+1
-
 class GameSelectButton extends StatelessWidget {
   const GameSelectButton({
     required this.onPressed,
-    //required this.onHover,
     required this.label,
   });
   final String label;
   final VoidCallback onPressed;
-//  final void Function(bool hasFocus) onHover;
 
   @override
   Widget build(BuildContext context) {
     return FocusableControlBuilder(
       onPressed: onPressed,
-      //   onHoverChanged: (_, state) => onHover.call(state.isHovered),
       builder: (_, state) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -177,7 +173,6 @@ class GameSelectButton extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF00D1FF).withOpacity(.1),
-                      //border: Border.all(color: Colors.white, width: 5),
                     ),
                   ),
                 ),
@@ -190,17 +185,6 @@ class GameSelectButton extends StatelessWidget {
                     ),
                   ),
                 ],
-
-                // if (state.isHovered) ...[
-                //   Positioned.fill(
-                //     child: Image.asset(
-                //       'assets/images/GameSpaceScreen.png',
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ],
-
-                /// Label
                 Center(
                   child: Text(label.toUpperCase(),
                       style: TextStyle(fontFamily: 'retro')),

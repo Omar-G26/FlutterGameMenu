@@ -4,8 +4,6 @@ import 'package:gaminghub/Pages/GameSelectionPage.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:focusable_control_builder/focusable_control_builder.dart';
 import 'package:gaminghub/Pages/SettingsPage.dart';
-import 'package:gaminghub/path/backgroundAssets.dart';
-
 class GameHomePage extends StatelessWidget {
   const GameHomePage({Key? key}) : super(key: key);
 
@@ -28,7 +26,8 @@ class GameHomePage extends StatelessWidget {
           children: [
             GameSelectButton(
               label: 'Play',
-              onPressed: () => Navigator.push(
+              onPressed: () =>
+               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SelectionPage(),
@@ -77,7 +76,6 @@ class GameMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FocusableControlBuilder(
       onPressed: onPressed,
-      //   onHoverChanged: (_, state) => onHover.call(state.isHovered),
       builder: (_, state) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -92,7 +90,6 @@ class GameMenuButton extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF00D1FF).withOpacity(.1),
-                      //border: Border.all(color: Colors.white, width: 5),
                     ),
                   ),
                 ),
@@ -105,17 +102,6 @@ class GameMenuButton extends StatelessWidget {
                     ),
                   ),
                 ],
-
-                // if (state.isHovered) ...[
-                //   Positioned.fill(
-                //     child: Image.asset(
-                //       'assets/images/GameSpaceScreen.png',
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ],
-
-                /// Label
                 Center(
                   child: Text(label.toUpperCase(),
                       style: TextStyle(fontFamily: 'retro')),
