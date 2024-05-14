@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gaminghub/Pages/scorePage.dart';
 import 'package:gaminghub/main.dart';
 import 'package:gaminghub/Pages/GameSelectionPage.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:focusable_control_builder/focusable_control_builder.dart';
 import 'package:gaminghub/Pages/SettingsPage.dart';
+
 class GameHomePage extends StatelessWidget {
   const GameHomePage({Key? key}) : super(key: key);
 
