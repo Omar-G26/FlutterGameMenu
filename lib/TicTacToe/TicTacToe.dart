@@ -1,5 +1,5 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-
 import 'package:gaminghub/Pages/GameSelectionPage.dart';
 import 'package:gaminghub/gameNavigationTicTacToe.dart';
 
@@ -25,152 +25,160 @@ class TicTacToeGame extends StatefulWidget {
 class _TicTacToeGameState extends State<TicTacToeGame> {
   List<List<String>> board = List.generate(3, (_) => List.filled(3, ''));
   bool player1Turn = true;
+  String winner = '';
+  bool botEnabled = true; // Add a flag to enable/disable the bot
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('TicTacToe'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SelectionPage(),
-                ));
-          },
-          child: Icon(Icons.home),
-        ),
-        drawer: gameNavigationTicTacToe(context: context),
-        body: Stack(children: [
-          ///NavigationTicTacToe(scaffoldKey: scaffoldKey),
+      key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text('TicTacToe'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SelectionPage(),
+            ),
+          );
+        },
+        child: Icon(Icons.home),
+      ),
+      drawer: gameNavigationTicTacToe(context: context),
+      body: Stack(
+        children: [
           Center(
-              child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.height * 0.9,
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                          ),
-                          itemCount: 9,
-                          itemBuilder: (BuildContext context, int index) {
-                            int row = index ~/ 3;
-                            int col = index % 3;
-                            return GestureDetector(
-                              onTap: () {
-                                if (board[row][col] == '') {
-                                  setState(() {
-                                    if (player1Turn) {
-                                      board[row][col] = 'X';
-                                    } else {
-                                      board[row][col] = 'O';
-                                    }
-                                    player1Turn = !player1Turn;
-                                  });
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.height * 0.9,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                      ),
+                      itemCount: 9,
+                      itemBuilder: (BuildContext context, int index) {
+                        int row = index ~/ 3;
+                        int col = index % 3;
+                        return GestureDetector(
+                          onTap: () {
+                            if (board[row][col] == '' && player1Turn && winner.isEmpty) {
+                              setState(() {
+                                board[row][col] = 'X';
+                                player1Turn = !player1Turn;
+                                winner = _checkGameStatus();
+                                if (botEnabled && !player1Turn && winner.isEmpty) {
+                                  _makeBotMove();
                                 }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                ),
-                                child: Center(
-                                    // board[row][col] == 'X' ? TextStyle(fontSize: 50.0, color: Colors.red) : TextStyle(fontSize: 50.0, color: Colors.blue),
-                                    child: board[row][col] == 'X'
-                                        ? Text(board[row][col],
-                                            style: TextStyle(
-                                                fontSize: 70.0,
-                                                color: Colors.blue))
-                                        : Text(board[row][col],
-                                            style: TextStyle(
-                                                fontSize: 70.0,
-                                                color: Colors.red))),
-                              ),
-                            );
+                              });
+                            }
                           },
-                        ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(),
+                            ),
+                            child: Center(
+                              child: Text(
+                                board[row][col],
+                                style: TextStyle(
+                                  fontSize: 70.0,
+                                  color: board[row][col] == 'X' ? Colors.blue : Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  if (winner.isNotEmpty)
+                    Text(
+                      winner == 'Draw' ? 'Draw!' : 'Winner: $winner',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: winner == 'X' ? Colors.blue : winner == 'O' ? Colors.red : Colors.black,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Reset the game
-                          setState(() {
-                            board = List.generate(3, (_) => List.filled(3, ''));
-                            player1Turn = true;
-                          });
-                        },
-                        child: Text('Reset'),
-                      ),
-                    ],
-                  )))
-        ])
+                    ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        board = List.generate(3, (_) => List.filled(3, ''));
+                        player1Turn = true;
+                        winner = '';
+                      });
+                    },
+                    child: Text('Reset'),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
-        //     child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-        //     SizedBox(
-        //       height: MediaQuery.of(context).size.height *
-        //           0.8, // Adjust the height as needed
-        //       child: Expanded(
-        //         child: GridView.builder(
-        //           shrinkWrap: true,
-        //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //             crossAxisCount: 3,
-        //           ),
-        //           itemCount: 9,
-        //           itemBuilder: (BuildContext context, int index) {
-        //             int row = index ~/ 3;
-        //             int col = index % 3;
-        //             return GestureDetector(
-        //               onTap: () {
-        //                 if (board[row][col] == '') {
-        //                   setState(() {
-        //                     if (player1Turn) {
-        //                       board[row][col] = 'X';
-        //                     } else {
-        //                       board[row][col] = 'O';
-        //                     }
-        //                     player1Turn = !player1Turn;
-        //                   });
-        //                 }
-        //               },
-        //               child: Container(
-        //                 decoration: BoxDecoration(
-        //                   border: Border.all(),
-        //                 ),
-        //                 child: Center(
-        //                   child: Text(
-        //                     board[row][col],
-        //                     style: TextStyle(fontSize: 20.0),
-        //                   ),
-        //                 ),
-        //               ),
-        //             );
-        //           },
-        //         ),
-        //       ),
-        //     ),
-        //     ElevatedButton(
-        //       onPressed: () {
-        //         // Reset the game
-        //         setState(() {
-        //           board = List.generate(3, (_) => List.filled(3, ''));
-        //           player1Turn = true;
-        //         });
-        //       },
-        //       child: Text('Reset'),
-        //     ),
-        //   ],
-        // )
+  // Function to check game status (win, draw)
+  String _checkGameStatus() {
+    // checking every row
+    for (int i = 0; i < 3; i++) {
+      if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '') {
+        return board[i][0];
+      }
+    }
+    // checking each column
+    for (int i = 0; i < 3; i++) {
+      if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '') {
+        return board[0][i];
+      }
+    }
+    // checking diagonals
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '') {
+      return board[0][0];
+    }
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '') {
+      return board[0][2];
+    }
+    // check for draw
+    bool draw = true;
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (board[i][j] == '') {
+          draw = false;
+          break;
+        }
+      }
+    }
+    if (draw) {
+      return 'Draw';
+    }
+    return '';
+  }
 
-        );
+  // Function to make bot move
+  void _makeBotMove() {
+    if (!player1Turn && winner.isEmpty) {
+      Random random = Random();
+      int row, col;
+      do {
+        row = random.nextInt(3);
+        col = random.nextInt(3);
+      } while (board[row][col] != '');
+      setState(() {
+        board[row][col] = 'O';
+        player1Turn = !player1Turn;
+        winner = _checkGameStatus(); // Check game status after bot's move
+      });
+    }
   }
 }
